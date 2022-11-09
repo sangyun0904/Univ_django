@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.utils import timezone
+from django.shortcuts import render
 
 def index(request):
-    return HttpResponse(timezone.now().strftime("%H:%M %p"))
+    return render(request, 'polls/index.html')
 
 
 
