@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block header %}
+{% endblock header %}
+
 {% block content %}
     <div id="time" class="text-center mt-3 h1">
-        Time: {{ time_now }}
+        Time: {{ time_now }}<br><br>
+        <canvas style="border: 3px solid black;"></canvas>
+        <script src="/static/js/index.js"></script>
     </div>
 {% endblock content %}
