@@ -3,7 +3,8 @@ from django.template import loader
 from django.http import HttpResponse
 
 def index(request):
-#    template = loader.get_template('login/index.html')
-    return HttpResponse("login page")
+    template = loader.get_template('login/index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 
 # Create your views here.
