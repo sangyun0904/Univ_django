@@ -1,10 +1,45 @@
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
-console.log(collisions)
-
 canvas.width = 768
 canvas.height = 432
+
+const collisionMap = []
+for (let i = 0; i < collisions.length; i += 50) {
+    collisionMap.push(collisions.slice(i, i+50))
+}
+
+class Boundary {
+    static width = 24
+    static height = 24
+    constructor(position) {
+        this.position = position
+        this.width = 24
+        this.height = 24
+    }
+
+    draw() {
+        c.fillStyle = 'red'
+        c.fillRect(this.position.x, this.position.y, this.width, this.height)
+    }
+}
+
+const boundaries = []
+
+collisionMap.forEach((row, i) => {
+    row.forEach((symbol, j) => {
+        if (symbol == 131)
+            boundaries.push(
+                new Boundary({position: {
+                        x: j * Boundary.width,
+                        y: i * Boundary.height
+                    }
+                })
+            )
+    })
+})
+
+console.log(boundaries)
 
 const image = new Image()
 image.src = '/static/img/map.png'
