@@ -17,7 +17,7 @@ class Sprite {
     }
 
     draw() {
-        c.drawImage(this.image, -110, -230)
+        c.drawImage(this.image, this.position.x, this.position.y)
     }
 }
 
@@ -28,6 +28,21 @@ const background = new Sprite({
     },
     image: image
 })
+
+const keys = {
+    up: {
+        pressed: false
+    },
+    down: {
+        pressed: false
+    },
+    left: {
+        pressed: false
+    },
+    right: {
+        pressed: false
+    }
+}
 
 function animate() {
     window.requestAnimationFrame(animate)
@@ -43,22 +58,43 @@ function animate() {
         playerImage.width / 4,
         playerImage.height
     )
+
+    if (keys.up.pressed) {
+        background.position.y = background.position.y + 5
+    }
 }
 animate()
 
 window.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowUp':
-            console.log('up')
+            keys.up.pressed = true
             break
         case 'ArrowDown':
-            console.log('down')
+            keys.down.pressed = true
             break
         case 'ArrowLeft':
-            console.log('left')
+            keys.left.pressed = true
             break
         case 'ArrowRight':
-            console.log('right')
+            keys.right.pressed = true
+            break
+    }
+})
+
+window.addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case 'ArrowUp':
+            keys.up.pressed = false
+            break
+        case 'ArrowDown':
+            keys.down.pressed = false
+            break
+        case 'ArrowLeft':
+            keys.left.pressed = false
+            break
+        case 'ArrowRight':
+            keys.right.pressed = false
             break
     }
 })
