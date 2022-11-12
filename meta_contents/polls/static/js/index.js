@@ -59,25 +59,31 @@ function animate() {
         playerImage.height
     )
 
-    if (keys.up.pressed) {
-        background.position.y = background.position.y + 5
-    }
+    if (keys.up.pressed && lastKey == 'ArrowUp') background.position.y += 3
+    else if (keys.left.pressed && lastKey == 'ArrowLeft') background.position.x += 3
+    else if (keys.right.pressed && lastKey == 'ArrowRight') background.position.x -= 3
+    else if (keys.down.pressed && lastKey == 'ArrowDown') background.position.y -= 3
 }
 animate()
 
+let lastKey = ''
 window.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowUp':
             keys.up.pressed = true
+            lastKey = 'ArrowUp'
             break
         case 'ArrowDown':
             keys.down.pressed = true
+            lastKey = 'ArrowDown'
             break
         case 'ArrowLeft':
             keys.left.pressed = true
+            lastKey = 'ArrowLeft'
             break
         case 'ArrowRight':
             keys.right.pressed = true
+            lastKey = 'ArrowRight'
             break
     }
 })
