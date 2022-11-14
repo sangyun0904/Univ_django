@@ -16,7 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meta_contents.settings')
 # for chat
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter , URLRouter
-from chat import routing
+from polls import routing
 
 application = get_asgi_application(
     {
