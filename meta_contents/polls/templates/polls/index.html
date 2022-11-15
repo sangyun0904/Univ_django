@@ -10,14 +10,16 @@
             Time: {{ time_now }}<br><br>
         </div>
         <canvas style="border: 3px solid black; width: 50%; float: left;"></canvas>
+        {{ room_name|json_script:"room-name" }}
         <div style="margin-left: 52%;">
-            <div
+            <textarea
                 class="chat__item__container"
                 id="id_chat_item_container"
-                style="font-size: 20px; border: 3px solid black; aspect-ratio: 5 / 3; "
-            ></div>
+                style="font-size: 20px; border: 3px solid black; width:96%; aspect-ratio: 5 / 3; "
+                disabled="true"
+            ></textarea>
             <br />
-            <button type="submit" id="id_message_send_button" style="float: right;">Send Message</button>
+            <button type="submit" id="id_message_send_button" style="float: right; margin-right: 3%;">Send Message</button>
             <input type="text" id="id_message_send_input" style="float: right;"/>
             <br />
         </div>
