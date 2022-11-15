@@ -143,12 +143,13 @@ window.addEventListener('keyup', (e) => {
 })
 
 //chat socket
+const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
 const chatSocket = new WebSocket(
     'ws://'
     + window.location.host
     + '/ws/polls/'
-    + roomname
+    + roomName
     + '/'
 );
 
