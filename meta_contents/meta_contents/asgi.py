@@ -1,30 +1,12 @@
-"""
-ASGI config for meta_contents project.
+import os 
 
-It exposes the ASGI callable as a module-level variable named ``application``.
+from channels.routing import ProtocolTypeRouter
+from django.core.asgi import get_asgi_application 
 
-For more information on this file, see
-https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
-"""
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "meta_contents.settings")
 
-import os
-
-from django.core.asgi import get_asgi_application
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'meta_contents.settings')
-
-# for chat
-from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter , URLRouter
-from polls import routing
-
-application = get_asgi_application(
+application = ProtocolTypeRouter(
     {
-        "http" : get_asgi_application() ,
-        "websocket" : AuthMiddlewareStack(
-            URLRouter(
-                routing.websocket_urlpatterns
-            )   
-        )
+        "http": get_asgi_application(),
     }
 )
