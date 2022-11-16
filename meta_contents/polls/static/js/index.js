@@ -53,15 +53,35 @@ const playerImage = new Image()
 playerImage.src = '/static/img/down.png'
 
 class Sprite {
-    constructor({ position, velocity, image }) {
+    constructor({ position, velocity, image, frames = { max:1 } }) {
         this.position = position
         this.image = image
+        this.frames = frames
     }
 
     draw() {
-        c.drawImage(this.image, this.position.x, this.position.y)
+        c.drawImage(
+            this.image,
+            0,
+            0,
+            this.image.width / this.frames.max,
+            this.image.height,
+            this.position.x,
+            this.position.y,
+            this.image.width / this.frames.max,
+            this.image.height
+        )
     }
 }
+
+const player = new Sprite({
+    position: {
+        x: canvas.width / 2 - 96 / 4,  // hard to put variable for width and height so put static value
+        y: canvas.height / 2 - 34 / 4,
+    },
+    image: playerImage,
+    frames: { max:4 }
+})
 
 const background = new Sprite({
     position: {
@@ -90,20 +110,10 @@ const movables = [background]
 function animate() {
     window.requestAnimationFrame(animate)
     background.draw()
+    player.draw()
     boundaries.forEach(boundary => {
         boundary.draw()
     })
-    c.drawImage(
-        playerImage,
-        0,
-        0,
-        playerImage.width / 4,
-        playerImage.height,
-        canvas.width / 2 - playerImage.width / 4,
-        canvas.height / 2 - playerImage.height / 4,
-        playerImage.width / 4,
-        playerImage.height
-    )
 
     if (keys.up.pressed && lastKey == 'ArrowUp') {
         movables.forEach((movable) => {
