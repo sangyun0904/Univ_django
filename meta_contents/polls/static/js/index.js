@@ -12,7 +12,7 @@ for (let i = 0; i < collisions.length; i += 50) {
 class Boundary {
     static width = 24
     static height = 24
-    constructor(position) {
+    constructor({ position }) {
         this.position = position
         this.width = 24
         this.height = 24
@@ -25,14 +25,19 @@ class Boundary {
 }
 
 const boundaries = []
+const offset = {
+    x: -110,
+    y: -230
+}
 
 collisionMap.forEach((row, i) => {
     row.forEach((symbol, j) => {
-        if (symbol == 131)
+        if (symbol === 131)
             boundaries.push(
-                new Boundary({position: {
-                        x: j * Boundary.width,
-                        y: i * Boundary.height
+                new Boundary({
+                    position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y
                     }
                 })
             )
@@ -60,8 +65,8 @@ class Sprite {
 
 const background = new Sprite({
     position: {
-        x: -110,
-        y: -230
+        x: offset.x,
+        y: offset.y
     },
     image: image
 })
@@ -81,9 +86,13 @@ const keys = {
     }
 }
 
+const movables = [background]
 function animate() {
     window.requestAnimationFrame(animate)
     background.draw()
+    boundaries.forEach(boundary => {
+        boundary.draw()
+    })
     c.drawImage(
         playerImage,
         0,
@@ -96,10 +105,26 @@ function animate() {
         playerImage.height
     )
 
-    if (keys.up.pressed && lastKey == 'ArrowUp') background.position.y += 3
-    else if (keys.left.pressed && lastKey == 'ArrowLeft') background.position.x += 3
-    else if (keys.right.pressed && lastKey == 'ArrowRight') background.position.x -= 3
-    else if (keys.down.pressed && lastKey == 'ArrowDown') background.position.y -= 3
+    if (keys.up.pressed && lastKey == 'ArrowUp') {
+        movables.forEach((movable) => {
+            movable.position.y += 3
+        })
+    }
+    else if (keys.left.pressed && lastKey == 'ArrowLeft') {
+        movables.forEach((movable) => {
+            movable.position.x += 3
+        })
+    }
+    else if (keys.right.pressed && lastKey == 'ArrowRight') {
+        movables.forEach((movable) => {
+            movable.position.x -= 3
+        })
+    }
+    else if (keys.down.pressed && lastKey == 'ArrowDown') {
+        movables.forEach((movable) => {
+            movable.position.y -= 3
+        })
+    }
 }
 animate()
 
