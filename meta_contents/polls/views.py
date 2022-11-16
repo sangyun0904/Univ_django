@@ -3,14 +3,13 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from django.template import loader
 
-def index(request, room_name, *args, **kwargs):
+def index(request, room_name):
     now = timezone.now().strftime("%H : %M %p")
-    template = loader.get_template('polls/index.html')
     context = {
         'time_now': now,
         'room_name':room_name
     }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'polls/index.html', context)
 
 
 

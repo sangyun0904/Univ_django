@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+ASGI_APPLICATION = 'meta_contents.asgi.application'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -70,7 +72,6 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = 'meta_contents.asgi.application'
 WSGI_APPLICATION = 'meta_contents.wsgi.application'
 
 
