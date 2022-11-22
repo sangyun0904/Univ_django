@@ -37,16 +37,31 @@ image.src = '/static/img/map.png'
 const foregroundImage = new Image()
 foregroundImage.src = '/static/img/foregroundObjects.png'
 
-const playerImage = new Image()
-playerImage.src = '/static/img/down.png'
+const playerDownImage = new Image()
+playerDownImage.src = '/static/img/down.png'
+
+const playerUpImage = new Image()
+playerUpImage.src = '/static/img/up.png'
+
+const playerLeftImage = new Image()
+playerLeftImage.src = '/static/img/left.png'
+
+const playerRightImage = new Image()
+playerRightImage.src = '/static/img/right.png'
 
 const player = new Sprite({
     position: {
         x: canvas.width / 2 - 96 / 4,  // hard to put variable for width and height so put static value
         y: canvas.height / 2 - 34 / 4,
     },
-    image: playerImage,
-    frames: { max:4 }
+    image: playerDownImage,
+    frames: { max:4 },
+    sprites: {
+        yu: playerUpImage,
+        left: playerLeftImage,
+        right: playerRightImage,
+        down: playerDownImage
+    }
 })
 
 const background = new Sprite({
@@ -103,7 +118,10 @@ function animate() {
     foreground.draw()
 
     let moving = true
+    player.moving = false
     if (keys.up.pressed && lastKey == 'ArrowUp') {
+        player.moving = true
+        player.image = player.sprites.yu
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i]
             if (
@@ -129,6 +147,8 @@ function animate() {
             })
     }
     else if (keys.left.pressed && lastKey == 'ArrowLeft') {
+        player.moving = true
+        player.image = player.sprites.left
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i]
             if (
@@ -154,6 +174,8 @@ function animate() {
             })
     }
     else if (keys.right.pressed && lastKey == 'ArrowRight') {
+        player.moving = true
+        player.image = player.sprites.right
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i]
             if (
@@ -179,6 +201,8 @@ function animate() {
             })
     }
     else if (keys.down.pressed && lastKey == 'ArrowDown') {
+        player.moving = true
+        player.image = player.sprites.down
         for (let i = 0; i < boundaries.length; i++) {
             const boundary = boundaries[i]
             if (
