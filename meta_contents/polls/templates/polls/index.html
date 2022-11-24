@@ -25,7 +25,7 @@
         </div>
     </div>
     {% if request.user.is_authenticated  %}
-        <center> Logout <a href = "{% url 'logout-user' %}">Logout</a></center>
+        <div> Logout <a href = "{% url 'logout-user' %}">Logout</a></div>
     {% endif %}
     <script src="/static/data/collision.js"></script>
     <script src="/static/js/classes.js"></script>
