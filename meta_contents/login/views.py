@@ -4,7 +4,10 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 
+from verify_email.email_handler import send_verification_email
+
 from django.contrib import messages
+from .forms import SignupForm
 
 def index(request):
     if request.method == 'POST':
@@ -20,13 +23,16 @@ def index(request):
 
 def signup(request):
     if request.method == 'POST':
+        form = SignupForm(request.POST)
+        print(form.is_valid())
+        #inactive_user = send_verification_email(request, form)
+
         username = request.POST['name']
         email = request.POST['email']
         password = request.POST['pass']
 
-        print(username, email, password)
 
-        user = User.objects.create_user(username, email, password)
+        #user = User.objects.create_user(username, email, password)
 
         return redirect('/')
 
