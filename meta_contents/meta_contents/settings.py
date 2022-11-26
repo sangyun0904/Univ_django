@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'verify_email.apps.VerifyEmailConfig',
 ]
 
 ASGI_APPLICATION = 'meta_contents.asgi.application'
@@ -136,4 +138,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
-RECIPIENT_ADDRESS = env('RECIPIENT_ADDRESS')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
