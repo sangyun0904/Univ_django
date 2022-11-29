@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from verify_email.email_handler import send_verification_email
 
 from django.contrib import messages
-from .forms import SignupForm
+from .forms import name
 
 def index(request):
     if request.method == 'POST':
@@ -22,10 +22,9 @@ def index(request):
     return render(request, 'login/signin.html', context)
 
 def signup(request):
+    form = name.render('name', '')
     if request.method == 'POST':
-        form = SignupForm(request.POST)
-        print(form.is_valid())
-        #inactive_user = send_verification_email(request, form)
+        inactive_user = send_verification_email(request, form)
 
         username = request.POST['name']
         email = request.POST['email']
@@ -38,4 +37,4 @@ def signup(request):
 
     template = loader.get_template('login/signup.html')
     context = {}
-    return HttpResponse(template.render(context, request))
+    return render(request, 'login/signup.html', {'form': form})
