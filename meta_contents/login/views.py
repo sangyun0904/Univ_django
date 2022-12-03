@@ -32,8 +32,8 @@ def signup(request):
 
     template = loader.get_template('login/signup.html')
     context = {
-        'form_name': form.name.render('name', ''),
-        'form_email': form.email.render('email', ''),
-        'form_pass': form.password.render('pass', '')
+        'form_name': form['name'],
+        'form_email': form['email'],
+        'form_pass': form['password']
     }
     return render(request, 'login/signup.html', context)
